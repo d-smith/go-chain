@@ -10,6 +10,14 @@ import (
 	"strings"
 )
 
+var wordlist []string
+
+
+func init() {
+	file, _ := ioutil.ReadFile("wordlist.txt")
+    wordlist = strings.Split(string(file), "\n")
+}
+
 
 
 func GetMnemonicPhrase() string {
@@ -89,8 +97,7 @@ func GetMnemonicPhrase() string {
 
 
 	// 3. Map to seed words from the standard
-	file, _ := ioutil.ReadFile("wordlist.txt")
-    wordlist := strings.Split(string(file), "\n")
+	
 
 	// How many 11 bit pieces are there?
 	pieces := ((len(bytes) * 8) + size) / 11
