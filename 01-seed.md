@@ -1,4 +1,4 @@
 # Mnemonic Seed
 
-See [Mnemonic](https://learnmeabitcoin.com/technical/mnemonic) Seed in Learn Me a Bitcoin
+See [Mnemonic Seed](https://learnmeabitcoin.com/technical/mnemonic)  in [Learn Me a Bitcoin](https://learnmeabitcoin.com/)
 
