@@ -10,12 +10,19 @@ import (
 	"strings"
 )
 
-var wordlist []string
+var (
+    wordlist []string
+    wordMap = map[string]int{}
+)
 
 
 func init() {
 	file, _ := ioutil.ReadFile("wordlist.txt")
     wordlist = strings.Split(string(file), "\n")
+
+    for i, v := range wordlist {
+		wordMap[v] = i
+	}
 }
 
 
@@ -139,4 +146,8 @@ func GetMnemonicPhrase() string {
     fmt.Println()
 
 	return mnemonic;
+}
+
+func entropyFromMnemonic(phrase string) []byte {
+    return make([]byte, 32);
 }
