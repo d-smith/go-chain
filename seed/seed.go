@@ -17,7 +17,11 @@ var (
 
 
 func init() {
-	file, _ := ioutil.ReadFile("wordlist.txt")
+    readWordList()
+}
+
+func readWordList() {
+    file, _ := ioutil.ReadFile("wordlist.txt")
     wordlist = strings.Split(string(file), "\n")
 
     for i, v := range wordlist {
