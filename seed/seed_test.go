@@ -8,4 +8,5 @@ import (
 func TestSeedGenerated(t *testing.T) {
 	seed := GetMnemonicPhrase()
 	fmt.Println(seed)
+	EntropyFromMnemonic(seed)
 }

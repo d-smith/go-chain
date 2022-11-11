@@ -152,6 +152,10 @@ func GetMnemonicPhrase() string {
 	return mnemonic;
 }
 
-func entropyFromMnemonic(phrase string) []byte {
+func EntropyFromMnemonic(phrase string) []byte {
+    words := strings.Fields(phrase)
+    for _,v := range words {
+        fmt.Println(v, " ==> ", wordMap[v])
+    }
     return make([]byte, 32);
 }
