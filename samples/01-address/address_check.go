@@ -18,7 +18,8 @@ func main() {
 	fmt.Printf("is valid: %v\n", re.MatchString("0xeEa6F93758Ebd196C5F2262893cCbDfE61d20626"))
 
 
-    client, err := ethclient.Dial("http://172.17.144.1:7545")
+    //client, err := ethclient.Dial("http://172.17.144.1:7545")
+    client, err := ethclient.Dial("http://127.0.0.1:8545")
     if err != nil {
         log.Fatal(err)
     }
