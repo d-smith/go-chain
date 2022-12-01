@@ -4,6 +4,7 @@ import (
     "context"
     "fmt"
     "log"
+    "os"
     "regexp"
 
     "github.com/ethereum/go-ethereum/common"
@@ -11,15 +12,20 @@ import (
 )
 
 func main() {
-    re := regexp.MustCompile("^0x[0-9a-fA-F]{40}$")
 
-    fmt.Printf("is valid: %v\n", re.MatchString("0x80902fbdb3DB2b97151c7E104dFee7B7aA43e51C")) // is valid: true
+    var (
+        re = regexp.MustCompile("^0x[0-9a-fA-F]{40}$")
+        account0 = os.Getenv("ACCOUNT0")
+        account1 = os.Getenv("ACCOUNT1")
+        rpcEndpoint = os.Getenv("RPC_ENDPOINT")
+    )
+
+    fmt.Printf("is valid: %v\n", re.MatchString(account0)) // is valid: true
     fmt.Printf("is valid: %v\n", re.MatchString("0xZYXb5d4c32345ced77393b3530b1eed0f346429d")) // is valid: false
-	fmt.Printf("is valid: %v\n", re.MatchString("0xeEa6F93758Ebd196C5F2262893cCbDfE61d20626"))
+	fmt.Printf("is valid: %v\n", re.MatchString(account1))
 
 
-    //client, err := ethclient.Dial("http://172.17.144.1:7545")
-    client, err := ethclient.Dial("http://127.0.0.1:8545")
+    client, err := ethclient.Dial(rpcEndpoint)
     if err != nil {
         log.Fatal(err)
     }

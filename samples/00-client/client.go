@@ -3,13 +3,15 @@ package main
 import (
     "fmt"
     "log"
+    "os"
 
     "github.com/ethereum/go-ethereum/ethclient"
 )
 
 func main() {
-    //client, err := ethclient.Dial("http://localhost:8545")
-	client, err := ethclient.Dial("http://172.17.144.1:7545")
+    var rpcEndpoint = os.Getenv("RPC_ENDPOINT")
+
+	client, err := ethclient.Dial(rpcEndpoint)
     if err != nil {
         log.Fatal(err)
     }
