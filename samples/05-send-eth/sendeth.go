@@ -6,6 +6,7 @@ import (
     "fmt"
     "log"
     "math/big"
+    "os"
 
     "github.com/ethereum/go-ethereum/common"
     "github.com/ethereum/go-ethereum/core/types"
@@ -14,13 +15,21 @@ import (
 )
 
 func main() {
-    client, err := ethclient.Dial("http://172.17.144.1:7545")
+
+    var (
+        rpcEndpoint = os.Getenv("RPC_ENDPOINT")
+        walletAccount0 = os.Getenv("WALLET_ACCOUNT0")
+        account0PK = os.Getenv("ACCOUNT0_PK")
+        chainIDFromEnv = os.Getenv("CHAIN_ID")
+    )
+
+    client, err := ethclient.Dial(rpcEndpoint)
     if err != nil {
         log.Fatal(err)
     }
 
 	// private key is for a prefunded ganache account
-    privateKey, err := crypto.HexToECDSA("5c7b57a0e7f5cf15d78c90a418cc1424a7f06e9f94f4d325c4eb2f929f039894")
+    privateKey, err := crypto.HexToECDSA(account0PK)
     if err != nil {
         log.Fatal(err)
     }
@@ -32,6 +41,7 @@ func main() {
     }
 
     fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
+    fmt.Println(fromAddress)
     nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
     if err != nil {
         log.Fatal(err)
@@ -44,21 +54,25 @@ func main() {
         log.Fatal(err)
     }
 
-	// accoubt 0 from hd wallet
-    toAddress := common.HexToAddress("0xC49926C4124cEe1cbA0Ea94Ea31a6c12318df947")
+	// account 0 from hd wallet
+    toAddress := common.HexToAddress(walletAccount0)
     var data []byte
     tx := types.NewTransaction(nonce, toAddress, value, gasLimit, gasPrice, data)
 
-    chainID, err := client.NetworkID(context.Background())
-    if err != nil {
-        log.Fatal(err)
+    chainID := new(big.Int)
+    chainID, ok = chainID.SetString(chainIDFromEnv, 10)
+    if(!ok) {
+        log.Fatal("error setting chain id from env")
     }
+    fmt.Println(chainID)
 
+    fmt.Println("sign tx")
     signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
     if err != nil {
         log.Fatal(err)
     }
 
+    fmt.Println("send tx")
     err = client.SendTransaction(context.Background(), signedTx)
     if err != nil {
         log.Fatal(err)
