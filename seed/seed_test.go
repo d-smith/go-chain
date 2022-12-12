@@ -1,9 +1,9 @@
 package seed
 
 import (
-	"testing"
 	"fmt"
 	"math/big"
+	"testing"
 )
 
 func TestSeedGenerated(t *testing.T) {
