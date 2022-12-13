@@ -1,0 +1,1 @@
+Refer to [this](https://github.com/d-smith/go-contracts) example.
