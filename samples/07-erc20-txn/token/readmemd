@@ -3,8 +3,24 @@ Notes
 
 * standard hardhat set up
 * run gananche via script in ganache folder
+* npm hardhat compile
+* npx hardhat run ./scripts/deploy.js --network localganache
 
 ```
 export PRIVATE_KEY=cb1a18dff8cfcee16202bf86f1f89f8b3881107b8192cd06836fda9dbc0fde1b
 export PROVIDER_URL=http://localhost:8545
 ```
+
+Compile the smart contract
+
+solc --abi balance.sol -o build
+
+Generate the go bindings via abigen
+
+```
+solc --abi balance.sol -o build 
+cd tokenbal
+abigen --abi=../build/ERC20TokenBalance.abi --pkg=balance --out=ERC20TokenBalance.abi.go
+```
+
+To simplify use as a sample with no mods copy the file and update the package...
