@@ -96,6 +96,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("tx sent: %s", signedTx.Hash().Hex())
+	fmt.Printf("%+v\n", signedTx)
+
+	fmt.Printf("tx sent: %s\n", signedTx.Hash().Hex())
 
 }
