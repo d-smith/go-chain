@@ -1,5 +1,7 @@
 package main
 
+// EIP 1559 transaction snippet - see https://community.infura.io/t/ethclient-go-how-to-send-an-eip-1559-transaction/5240
+
 import (
 	"context"
 	"crypto/ecdsa"
